@@ -12,6 +12,7 @@ import { CourseApiService } from '../services/course-api.service';
 export class CourseList implements OnInit {
   sectionTitle: string = 'Academic Courses & Relationships Hub';
   activeTab: 'course' | 'enroll' | 'instructor' | 'student' = 'course';
+  viewMode: 'cards' | 'table' = 'cards';
   toastMessage: string = '';
 
   courses: Course[] = [];
@@ -19,9 +20,8 @@ export class CourseList implements OnInit {
   students: Student[] = [];
   searchKeyword: string = '';
   pageIndex: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 6;
 
-  // نموذج الدورة (1:N) + الخطة الدراسية (1:1)
   newCourse: Course = {
     courseId: 0,
     title: '',
@@ -36,14 +36,12 @@ export class CourseList implements OnInit {
     durationHours: 24,
   };
 
-  // نموذج التسجيل (N:M)
   newEnrollment: Enrollment = {
     studentId: 1,
     courseId: 1,
     enrollmentOrder: 1,
   };
 
-  // نماذج إضافة مدرب وطالب
   newInstructor = { fullName: '', email: '' };
   newStudent = { name: '' };
 

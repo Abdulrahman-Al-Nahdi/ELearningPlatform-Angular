@@ -1,22 +1,47 @@
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="brand">
-      <div class="brand-logo">EV</div>
+<header class="hero-header">
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <div class="nav-inner">
+    <div class="brand-box">
+      <div class="logo-badge">
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.3"
+        >
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+          <path d="M6 12v5c3 3 9 3 12 0v-5" />
+        </svg>
+      </div>
       <div>
-        <span class="brand-title">{{ brandName }}</span>
-        <span class="brand-subtitle">{{ courseCode }}</span>
+        <div class="title-row">
+          <span class="brand-name">{{ brandName }}</span>
+          <span class="version-pill">SPA v2.0</span>
+        </div>
+        <span class="course-label">{{ courseCode }}</span>
       </div>
     </div>
 
-    <div class="nav-meta">
-      <span class="api-badge"> <span class="dot"></span> API Connected :7182 </span>
-      <div class="student-pill">
-        <span class="avatar">{{ studentName.charAt(0) | uppercase }}</span>
-        <span>{{ studentName }}</span>
+    <div class="header-actions">
+      <div class="status-glass">
+        <span class="pulse-dot"></span>
+        <span>Web API :7182</span>
+      </div>
+
+      <div class="user-glass">
+        <div class="user-avatar">{{ studentName.charAt(0) | uppercase }}</div>
+        <div class="user-info">
+          <span class="user-role">Developer</span>
+          <span class="user-name">{{ studentName }}</span>
+        </div>
       </div>
     </div>
   </div>
-</nav>
+</header>
 
 <main>
   <app-course-list></app-course-list>

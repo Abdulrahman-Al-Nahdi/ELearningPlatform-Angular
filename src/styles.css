@@ -1,21 +1,12 @@
 :root {
   --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --primary-light: #eef2ff;
-  --secondary: #0f172a;
-  --bg-main: #f1f5f9;
+  --primary-dark: #3730a3;
+  --accent: #7c3aed;
+  --bg-page: #f4f6fb;
   --surface: #ffffff;
   --text-main: #0f172a;
   --text-muted: #64748b;
   --border: #e2e8f0;
-  --success-bg: #dcfce7;
-  --success-text: #15803d;
-  --warning-bg: #fef3c7;
-  --warning-text: #b45309;
-  --danger: #ef4444;
-  --danger-hover: #dc2626;
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.07), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
 }
 
 * {
@@ -30,8 +21,11 @@ body {
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
-  background-color: var(--bg-main);
+  background-color: var(--bg-page);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
   color: var(--text-main);
-  line-height: 1.5;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }

@@ -1,78 +1,177 @@
-<div class="dashboard-wrapper">
-  <!-- إشعار تفاعلي أنيق -->
-  <div *ngIf="toastMessage" class="toast-banner">
-    <span>✓ {{ toastMessage }}</span>
+<div class="dashboard-shell">
+  <!-- إشعار منبثق -->
+  <div *ngIf="toastMessage" class="toast-popup">
+    <span class="toast-icon">✓</span>
+    <span>{{ toastMessage }}</span>
   </div>
 
-  <!-- رأس الصفحة -->
-  <div class="page-header">
+  <!-- شريط العنوان العلوي للوحة -->
+  <div class="top-bar">
     <div>
-      <h2>{{ sectionTitle | uppercase }}</h2>
-      <p class="subtitle">
-        Manage Courses, Instructors (1:N), Syllabuses (1:1), and Student Enrollments (N:M)
+      <h1 class="main-title">{{ sectionTitle | uppercase }}</h1>
+      <p class="main-desc">
+        Full-Stack EF Core Code-First Architecture • 1:N, 1:1 & N:M Entity Mapping
       </p>
     </div>
-    <button class="btn-outline" (click)="pageIndex = 1; loadAllData()">↻ Refresh All</button>
+    <button class="btn-glass-refresh" (click)="pageIndex = 1; loadAllData()">
+      <svg
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.3"
+      >
+        <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+        <path d="M3 3v5h5" />
+        <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+        <path d="M16 16h5v5" />
+      </svg>
+      <span>Sync Data</span>
+    </button>
   </div>
 
-  <!-- بطاقات الإحصائيات (KPI Cards) -->
-  <div class="stats-grid">
-    <div class="stat-card">
-      <span class="stat-label">Total Courses</span>
-      <span class="stat-value">{{ courses.length }}</span>
-      <span class="stat-tag tag-indigo">Entity Core</span>
+  <!-- بطاقات الإحصائيات بالأيقونات الاحترافية -->
+  <div class="kpi-grid">
+    <div class="kpi-card kpi-indigo">
+      <div class="kpi-top">
+        <span class="kpi-title">Total Courses</span>
+        <div class="kpi-icon-box icon-indigo">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+          </svg>
+        </div>
+      </div>
+      <div class="kpi-number">{{ courses.length }}</div>
+      <span class="rel-chip chip-indigo">Core Entity + 1:1 Syllabus</span>
     </div>
-    <div class="stat-card">
-      <span class="stat-label">Published Courses</span>
-      <span class="stat-value">{{ publishedCount }}</span>
-      <span class="stat-tag tag-green">Live Catalog</span>
+
+    <div class="kpi-card kpi-emerald">
+      <div class="kpi-top">
+        <span class="kpi-title">Published Live</span>
+        <div class="kpi-icon-box icon-emerald">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+        </div>
+      </div>
+      <div class="kpi-number">{{ publishedCount }}</div>
+      <span class="rel-chip chip-emerald">Custom PUT /publish</span>
     </div>
-    <div class="stat-card">
-      <span class="stat-label">Active Instructors</span>
-      <span class="stat-value">{{ instructors.length }}</span>
-      <span class="stat-tag tag-purple">1:N Relation</span>
+
+    <div class="kpi-card kpi-purple">
+      <div class="kpi-top">
+        <span class="kpi-title">Active Instructors</span>
+        <div class="kpi-icon-box icon-purple">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg>
+        </div>
+      </div>
+      <div class="kpi-number">{{ instructors.length }}</div>
+      <span class="rel-chip chip-purple">1:N One-to-Many</span>
     </div>
-    <div class="stat-card">
-      <span class="stat-label">Enrolled Students</span>
-      <span class="stat-value">{{ students.length }}</span>
-      <span class="stat-tag tag-amber">N:M Relation</span>
+
+    <div class="kpi-card kpi-amber">
+      <div class="kpi-top">
+        <span class="kpi-title">Registered Students</span>
+        <div class="kpi-icon-box icon-amber">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+          >
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <polyline points="16 11 18 13 22 9" />
+          </svg>
+        </div>
+      </div>
+      <div class="kpi-number">{{ students.length }}</div>
+      <span class="rel-chip chip-amber">N:M Many-to-Many</span>
     </div>
   </div>
 
-  <!-- لوحة العمليات التفاعلية بنظام التبويبات -->
-  <div class="panel-card">
-    <div class="tabs-bar">
-      <button [class.active-tab]="activeTab === 'course'" (click)="activeTab = 'course'">
-        + New Course (1:N & 1:1)
-      </button>
-      <button [class.active-tab]="activeTab === 'enroll'" (click)="activeTab = 'enroll'">
-        🎓 Enroll Student (N:M)
-      </button>
-      <button [class.active-tab]="activeTab === 'instructor'" (click)="activeTab = 'instructor'">
-        👨‍🏫 Add Instructor
-      </button>
-      <button [class.active-tab]="activeTab === 'student'" (click)="activeTab = 'student'">
-        🧑‍🎓 Add Student
-      </button>
+  <!-- استوديو العمليات التفاعلي -->
+  <div class="studio-card">
+    <div class="studio-header">
+      <div class="segmented-tabs">
+        <button
+          [ngClass]="activeTab === 'course' ? 'seg-btn active' : 'seg-btn'"
+          (click)="activeTab = 'course'"
+        >
+          + Create Course (1:N & 1:1)
+        </button>
+        <button
+          [ngClass]="activeTab === 'enroll' ? 'seg-btn active' : 'seg-btn'"
+          (click)="activeTab = 'enroll'"
+        >
+          Enroll Student (N:M)
+        </button>
+        <button
+          [ngClass]="activeTab === 'instructor' ? 'seg-btn active' : 'seg-btn'"
+          (click)="activeTab = 'instructor'"
+        >
+          + Add Instructor
+        </button>
+        <button
+          [ngClass]="activeTab === 'student' ? 'seg-btn active' : 'seg-btn'"
+          (click)="activeTab = 'student'"
+        >
+          + Add Student
+        </button>
+      </div>
     </div>
 
-    <!-- التبويب 1: إضافة دورة مع المدرب والخطة -->
-    <div *ngIf="activeTab === 'course'" class="tab-content">
-      <div class="form-grid">
-        <div class="field">
+    <!-- التبويب 1: إضافة دورة -->
+    <div *ngIf="activeTab === 'course'" class="studio-body">
+      <div class="inputs-grid">
+        <div class="input-group">
           <label>Course Title</label>
-          <input type="text" [(ngModel)]="newCourse.title" placeholder="e.g. Full Stack Angular" />
+          <input
+            type="text"
+            [(ngModel)]="newCourse.title"
+            placeholder="e.g. Modern Angular Architecture"
+          />
         </div>
-        <div class="field">
-          <label>Price (USD)</label>
-          <input type="number" [(ngModel)]="newCourse.price" placeholder="99" />
+        <div class="input-group">
+          <label>Tuition Price (USD)</label>
+          <input type="number" [(ngModel)]="newCourse.price" placeholder="120" />
         </div>
-        <div class="field">
+        <div class="input-group">
           <label>Start Date</label>
           <input type="date" [(ngModel)]="newCourse.startDate" />
         </div>
-        <div class="field">
-          <label>Instructor (1:N)</label>
+        <div class="input-group">
+          <label>Assigned Instructor (1:N)</label>
           <select [(ngModel)]="newCourse.instructorId">
             <option *ngFor="let inst of instructors" [ngValue]="inst.instructorId">
               {{ inst.fullName }}
@@ -81,69 +180,86 @@
         </div>
       </div>
 
-      <div class="form-grid" style="margin-top: 12px">
-        <div class="field span-2">
-          <label>Course Syllabus Topics (1:1 Relation)</label>
+      <div class="inputs-grid" style="margin-top: 14px">
+        <div class="input-group span-2">
+          <label>Syllabus Summary (1:1 Dedicated Entity)</label>
           <input
             type="text"
             [(ngModel)]="syllabusForm.topicsSummary"
-            placeholder="e.g. ORM, Web API, Routing, SPA"
+            placeholder="e.g. Components, Directives, Pipes, HttpClient"
           />
         </div>
-        <div class="field">
+        <div class="input-group">
           <label>Duration (Hours)</label>
-          <input type="number" [(ngModel)]="syllabusForm.durationHours" placeholder="24" />
+          <input type="number" [(ngModel)]="syllabusForm.durationHours" placeholder="30" />
         </div>
-        <div class="field action-align">
+        <div class="input-group btn-bottom">
           <button
-            class="btn-primary"
+            class="btn-gradient"
             [disabled]="!newCourse.title || !syllabusForm.topicsSummary || instructors.length === 0"
             (click)="createCourse()"
           >
-            Create Course
+            Launch Course
           </button>
         </div>
       </div>
-      <p *ngIf="instructors.length === 0" class="hint-text">
-        Please add at least one Instructor first from the "Add Instructor" tab.
+      <p *ngIf="instructors.length === 0" class="warn-note">
+        Add at least one Instructor first from "+ Add Instructor".
       </p>
     </div>
 
-    <!-- التبويب 2: تسجيل طالب في دورة (N:M) -->
-    <div *ngIf="activeTab === 'enroll'" class="tab-content">
-      <div class="form-grid">
-        <div class="field">
+    <!-- التبويب 2: تسجيل طالب (N:M) + عرض التسجيلات الحالية -->
+    <div *ngIf="activeTab === 'enroll'" class="studio-body">
+      <div class="inputs-grid">
+        <div class="input-group">
           <label>Select Student</label>
           <select [(ngModel)]="newEnrollment.studentId">
             <option *ngFor="let st of students" [ngValue]="st.studentId">{{ st.name }}</option>
           </select>
         </div>
-        <div class="field">
-          <label>Select Course</label>
+        <div class="input-group">
+          <label>Select Target Course</label>
           <select [(ngModel)]="newEnrollment.courseId">
             <option *ngFor="let c of courses" [ngValue]="c.courseId">{{ c.title }}</option>
           </select>
         </div>
-        <div class="field">
-          <label>Enrollment Priority Order</label>
+        <div class="input-group">
+          <label>Enrollment Order</label>
           <input type="number" [(ngModel)]="newEnrollment.enrollmentOrder" min="1" />
         </div>
-        <div class="field action-align">
+        <div class="input-group btn-bottom">
           <button
-            class="btn-primary"
+            class="btn-gradient"
             [disabled]="students.length === 0 || courses.length === 0"
             (click)="enroll()"
           >
-            Confirm Enrollment
+            Confirm N:M Enrollment
           </button>
+        </div>
+      </div>
+
+      <!-- عرض مرئي لعلاقة N:M بين الطلاب والدورات -->
+      <div *ngIf="students.length > 0" class="nm-preview">
+        <span class="nm-heading">Live Student Enrollments (N:M Junction Records):</span>
+        <div class="student-chips-wrap">
+          <div *ngFor="let st of students" class="student-nm-item">
+            <strong>{{ st.name }}</strong>
+            <span class="arrow">→</span>
+            <span *ngIf="!st.enrollments || st.enrollments.length === 0" class="no-enroll"
+              >No courses yet</span
+            >
+            <span *ngFor="let en of st.enrollments" class="enrolled-course-pill">
+              {{ en.course?.title || 'Course #' + en.courseId }} (#{{ en.enrollmentOrder }})
+            </span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- التبويب 3: إضافة مدرب -->
-    <div *ngIf="activeTab === 'instructor'" class="tab-content">
-      <div class="form-grid">
-        <div class="field">
+    <div *ngIf="activeTab === 'instructor'" class="studio-body">
+      <div class="inputs-grid">
+        <div class="input-group">
           <label>Instructor Full Name</label>
           <input
             type="text"
@@ -151,17 +267,13 @@
             placeholder="e.g. Ms. Maram Baatya"
           />
         </div>
-        <div class="field">
-          <label>Email Address</label>
-          <input
-            type="email"
-            [(ngModel)]="newInstructor.email"
-            placeholder="instructor@eduverse.com"
-          />
+        <div class="input-group">
+          <label>Academic Email</label>
+          <input type="email" [(ngModel)]="newInstructor.email" placeholder="maram@eduverse.edu" />
         </div>
-        <div class="field action-align">
+        <div class="input-group btn-bottom">
           <button
-            class="btn-primary"
+            class="btn-gradient"
             [disabled]="!newInstructor.fullName || !newInstructor.email"
             (click)="createInstructor()"
           >
@@ -172,103 +284,171 @@
     </div>
 
     <!-- التبويب 4: إضافة طالب -->
-    <div *ngIf="activeTab === 'student'" class="tab-content">
-      <div class="form-grid">
-        <div class="field span-2">
+    <div *ngIf="activeTab === 'student'" class="studio-body">
+      <div class="inputs-grid">
+        <div class="input-group span-2">
           <label>Student Full Name</label>
-          <input type="text" [(ngModel)]="newStudent.name" placeholder="e.g. Mohammed Ali" />
+          <input type="text" [(ngModel)]="newStudent.name" placeholder="e.g. Abdulrahman Salem" />
         </div>
-        <div class="field action-align">
-          <button class="btn-primary" [disabled]="!newStudent.name" (click)="createStudent()">
-            Save Student
+        <div class="input-group btn-bottom">
+          <button class="btn-gradient" [disabled]="!newStudent.name" (click)="createStudent()">
+            Register Student
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- جدول عرض الدورات مع البحث والترقيم -->
-  <div class="table-card">
-    <div class="table-toolbar">
-      <h3>Courses Directory</h3>
-      <div class="search-group">
-        <input type="text" [(ngModel)]="searchKeyword" placeholder="Search by English letters..." />
-        <button class="btn-primary" (click)="onSearch()">Search</button>
+  <!-- شريط البحث والتبديل بين البطاقات والجدول -->
+  <div class="catalog-header">
+    <div class="catalog-title-box">
+      <h2>Courses Catalog</h2>
+      <span class="count-pill">{{ courses.length }} Courses</span>
+    </div>
+
+    <div class="catalog-controls">
+      <div class="search-pill-box">
+        <input type="text" [(ngModel)]="searchKeyword" placeholder="Search English letters..." />
+        <button class="btn-search" (click)="onSearch()">Search</button>
+        <button *ngIf="searchKeyword" class="btn-reset" (click)="searchKeyword = ''; loadAllData()">
+          ✕
+        </button>
+      </div>
+
+      <div class="view-switcher">
         <button
-          class="btn-outline"
-          *ngIf="searchKeyword"
-          (click)="searchKeyword = ''; loadAllData()"
+          [ngClass]="viewMode === 'cards' ? 'view-btn active' : 'view-btn'"
+          (click)="viewMode = 'cards'"
         >
-          Clear
+          Cards
+        </button>
+        <button
+          [ngClass]="viewMode === 'table' ? 'view-btn active' : 'view-btn'"
+          (click)="viewMode = 'table'"
+        >
+          Table
         </button>
       </div>
     </div>
+  </div>
 
-    <div *ngIf="courses.length === 0" class="empty-state">
-      <h4>No courses to display</h4>
-      <p>Use the form above to add a new course or reset your search filter.</p>
-    </div>
+  <!-- حالة عدم وجود دورات -->
+  <div *ngIf="courses.length === 0" class="empty-card">
+    <div class="empty-icon">📚</div>
+    <h3>No Courses Found</h3>
+    <p>
+      Create your first course above using "+ Create Course (1:N & 1:1)" to see it rendered here.
+    </p>
+  </div>
 
-    <div class="table-responsive" *ngIf="courses.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Course Title</th>
-            <th>Instructor (1:N)</th>
-            <th>Syllabus Details (1:1)</th>
-            <th>Tuition</th>
-            <th>Start Date</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let c of courses">
-            <td class="id-col">{{ c.courseId }}</td>
-            <td class="title-col">{{ c.title | uppercase }}</td>
-            <td>
-              <span class="instructor-chip">{{
-                c.instructor?.fullName || 'Assigned #' + c.instructorId
-              }}</span>
-            </td>
-            <td class="syllabus-col">
-              <div *ngIf="c.syllabus">
-                <strong>{{ c.syllabus.topicsSummary }}</strong>
-                <span class="hours-badge">{{ c.syllabus.durationHours }} hrs</span>
-              </div>
-              <span *ngIf="!c.syllabus" class="muted-text">No syllabus attached</span>
-            </td>
-            <td class="price-col">{{ c.price | currency: 'USD' }}</td>
-            <td>{{ c.startDate | date: 'shortDate' | uppercase }}</td>
-            <td>
-              <span
-                class="status-badge"
-                [ngClass]="c.isPublished ? 'badge-published' : 'badge-draft'"
-              >
-                {{ c.isPublished ? 'Published' : 'Draft' }}
-              </span>
-            </td>
-            <td class="actions-col">
-              <button *ngIf="!c.isPublished" class="btn-publish" (click)="publish(c.courseId)">
-                Publish
-              </button>
-              <button class="btn-delete" (click)="remove(c.courseId)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- أزرار Pagination -->
-    <div class="pagination-bar">
-      <span class="page-info">Page {{ pageIndex }} (Showing up to {{ pageSize }} per page)</span>
-      <div class="page-buttons">
-        <button class="btn-outline" [disabled]="pageIndex === 1" (click)="loadPage(-1)">
-          ← Previous
-        </button>
-        <button class="btn-outline" (click)="loadPage(1)">Next →</button>
+  <!-- العرض 1: شبكة البطاقات الاحترافية (Visual Course Cards) -->
+  <div *ngIf="courses.length > 0 && viewMode === 'cards'" class="courses-cards-grid">
+    <div *ngFor="let c of courses" class="course-card">
+      <div class="card-banner">
+        <span class="course-id-tag">#{{ c.courseId }}</span>
+        <span class="status-pill" [ngClass]="c.isPublished ? 'pill-published' : 'pill-draft'">
+          {{ c.isPublished ? '● Published' : '● Draft' }}
+        </span>
       </div>
+
+      <div class="card-content">
+        <h3 class="course-card-title">{{ c.title | uppercase }}</h3>
+
+        <div class="instructor-line">
+          <span class="mini-avatar">{{
+            (c.instructor?.fullName || 'I').charAt(0) | uppercase
+          }}</span>
+          <span>{{ c.instructor?.fullName || 'Instructor #' + c.instructorId }}</span>
+          <span class="rel-badge">1:N</span>
+        </div>
+
+        <div class="syllabus-box">
+          <div class="syllabus-head">
+            <span>SYLLABUS (1:1)</span>
+            <span *ngIf="c.syllabus" class="duration-tag"
+              >{{ c.syllabus.durationHours }} Hours</span
+            >
+          </div>
+          <p *ngIf="c.syllabus" class="syllabus-text">{{ c.syllabus.topicsSummary }}</p>
+          <p *ngIf="!c.syllabus" class="syllabus-text muted">No syllabus attached</p>
+        </div>
+
+        <div class="card-meta-footer">
+          <div>
+            <span class="meta-lbl">Tuition</span>
+            <span class="meta-price">{{ c.price | currency: 'USD' }}</span>
+          </div>
+          <div style="text-align: right">
+            <span class="meta-lbl">Start Date</span>
+            <span class="meta-date">{{ c.startDate | date: 'shortDate' | uppercase }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-actions-bar">
+        <button *ngIf="!c.isPublished" class="btn-card-publish" (click)="publish(c.courseId)">
+          Publish Now
+        </button>
+        <span *ngIf="c.isPublished" class="live-indicator">✓ Active on Portal</span>
+        <button class="btn-card-delete" (click)="remove(c.courseId)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- العرض 2: الجدول التفصيلي (Table View) -->
+  <div *ngIf="courses.length > 0 && viewMode === 'table'" class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Course Title</th>
+          <th>Instructor (1:N)</th>
+          <th>Syllabus (1:1)</th>
+          <th>Price</th>
+          <th>Start Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of courses">
+          <td class="bold-muted">{{ c.courseId }}</td>
+          <td class="bold-dark">{{ c.title | uppercase }}</td>
+          <td>{{ c.instructor?.fullName || 'Instructor #' + c.instructorId }}</td>
+          <td>
+            <span *ngIf="c.syllabus"
+              >{{ c.syllabus.topicsSummary }} ({{ c.syllabus.durationHours }}h)</span
+            >
+            <span *ngIf="!c.syllabus" class="bold-muted">No Syllabus</span>
+          </td>
+          <td class="price-text">{{ c.price | currency: 'USD' }}</td>
+          <td>{{ c.startDate | date: 'shortDate' | uppercase }}</td>
+          <td>
+            <span class="status-pill" [ngClass]="c.isPublished ? 'pill-published' : 'pill-draft'">
+              {{ c.isPublished ? 'Published' : 'Draft' }}
+            </span>
+          </td>
+          <td class="tbl-actions">
+            <button *ngIf="!c.isPublished" class="btn-tbl-pub" (click)="publish(c.courseId)">
+              Publish
+            </button>
+            <button class="btn-tbl-del" (click)="remove(c.courseId)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- شريط التنقل بين الصفحات (Pagination) -->
+  <div class="pagination-footer">
+    <span
+      >Page <strong>{{ pageIndex }}</strong> • API Endpoint: <code>/api/Course/paged</code></span
+    >
+    <div class="pag-btns">
+      <button class="btn-pag" [disabled]="pageIndex === 1" (click)="loadPage(-1)">
+        ← Previous
+      </button>
+      <button class="btn-pag" (click)="loadPage(1)">Next →</button>
     </div>
   </div>
 </div>
